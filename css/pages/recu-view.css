@@ -1,0 +1,361 @@
+/* ==========================================================================
+   Styles pour les Reçus - Version Sobre et Épurée
+   ========================================================================== */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #dbeafe;
+    --secondary: #1e293b;
+    --border: #e2e8f0;
+    --background: #f8fafc;
+    --success: #10b981;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--background);
+    color: var(--secondary);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+    .no-print {
+        display: none !important;
+    }
+}
+
+.container {
+    max-width: 500px;
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* En-tête sobre */
+.document-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 120px;
+    height: 60px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.document-titles h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.document-ref {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* Confirmation */
+.confirmation-section {
+    padding: 25px 30px;
+    text-align: center;
+    background: white;
+    border-bottom: 1px solid var(--border);
+}
+
+.confirmation-icon {
+    margin-bottom: 15px;
+}
+
+.confirmation-icon i {
+    font-size: 3rem;
+    color: var(--success);
+}
+
+.confirmation-section h2 {
+    font-size: 1.3rem;
+    color: var(--secondary);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.confirmation-section p {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+/* Informations principales */
+.main-info {
+    padding: 20px 30px;
+}
+
+.info-card {
+    background: var(--background);
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item.highlight {
+    background: var(--primary-light);
+    border-left: 3px solid var(--primary);
+}
+
+.label {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.value {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+.amount {
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+/* Services */
+.services-section {
+    padding: 0 30px 20px;
+}
+
+.services-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    color: var(--secondary);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.services-section h3 i {
+    color: var(--primary);
+}
+
+.services-table {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.service-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: var(--primary-light);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--secondary);
+}
+
+.services-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+.service-item:last-child {
+    border-bottom: none;
+}
+
+.service-name {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    flex: 1;
+}
+
+.service-amount {
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+/* Message remerciement */
+.thank-you {
+    padding: 20px 30px;
+    background: var(--background);
+    border-top: 1px solid var(--border);
+}
+
+.thank-you-content {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.thank-you-content p {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 1rem;
+}
+
+.contact-info {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-info p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.contact-info i {
+    color: var(--primary);
+    font-size: 0.8rem;
+}
+
+/* Actions */
+.document-actions {
+    padding: 20px 30px;
+    background: white;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.btn-download {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-print {
+    background: #64748b;
+    color: white;
+}
+
+.btn-close {
+    background: #ef4444;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        align-items: flex-start;
+    }
+    
+    .container {
+        margin: 0;
+    }
+    
+    .document-header {
+        padding: 20px;
+    }
+    
+    .confirmation-section,
+    .main-info,
+    .services-section,
+    .thank-you {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .document-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        justify-content: center;
+    }
+}
+
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+    
+    .container {
+        box-shadow: none;
+        margin: 0;
+    }
+    
+    .btn {
+        display: none;
+    }
+}

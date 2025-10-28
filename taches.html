@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Tâches - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/taches.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+</head>
+<body>
+    <!-- Le menu latéral sera injecté ici par JavaScript -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Contenu Principal -->
+    <div class="main-content">
+        <!-- L'en-tête sera injecté ici par JavaScript -->
+        <div id="header-container"></div>
+        
+        <!-- Contenu spécifique à la page des tâches -->
+        <main>
+            <!-- En-tête de page avec filtres -->
+            <div class="page-header">
+                <div class="header-actions">
+                    <div class="action-group">
+                        <button class="btn btn-primary" onclick="openTaskModal()">
+                            <i class="fas fa-plus"></i>
+                            Nouvelle Tâche
+                        </button>
+                        <button class="btn btn-secondary" onclick="refreshTasks()">
+                            <i class="fas fa-sync-alt"></i>
+                            Actualiser
+                        </button>
+                    </div>
+                    <div class="header-filters">
+                        <select class="filter-select" id="statusFilter">
+                            <option value="">Tous les statuts</option>
+                            <option value="a-faire">À faire</option>
+                            <option value="en-cours">En cours</option>
+                            <option value="terminee">Terminée</option>
+                            <option value="annulee">Annulée</option>
+                        </select>
+                        <select class="filter-select" id="priorityFilter">
+                            <option value="">Toutes les priorités</option>
+                            <option value="basse">Basse</option>
+                            <option value="moyenne">Moyenne</option>
+                            <option value="haute">Haute</option>
+                            <option value="urgente">Urgente</option>
+                        </select>
+                        <select class="filter-select" id="employeeFilter">
+                            <option value="">Tous les employés</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistiques des tâches -->
+            <div class="tasks-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalTasks">0</h3>
+                        <p>Tâches totales</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="urgentTasks">0</h3>
+                        <p>Tâches urgentes</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="completedTasks">0</h3>
+                        <p>Tâches terminées</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #64748b 0%, #475569 100%);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="delayedTasks">0</h3>
+                        <p>En retard</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vue des tâches -->
+            <div class="tasks-view">
+                <!-- Boutons de changement de vue -->
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="table">
+                        <i class="fas fa-table"></i> Vue Tableau
+                    </button>
+                    <button class="view-btn" data-view="kanban">
+                        <i class="fas fa-columns"></i> Vue Kanban
+                    </button>
+                    <button class="view-btn" data-view="calendar">
+                        <i class="fas fa-calendar"></i> Vue Calendrier
+                    </button>
+                </div>
+
+                <!-- Vue Tableau (par défaut) -->
+                <div class="view-content active" id="tableView">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Liste des Tâches</h2>
+                            <div class="card-actions">
+                                <button class="btn-icon" title="Exporter">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn-icon" title="Filtrer">
+                                    <i class="fas fa-filter"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="table-container">
+                            <table id="tasksTable">
+                                <thead>
+                                    <tr>
+                                        <th>Titre</th>
+                                        <th>Projet</th>
+                                        <th>Service</th>
+                                        <th>Assigné à</th>
+                                        <th>Date de fin</th>
+                                        <th>Priorité</th>
+                                        <th>Statut</th>
+                                        <th>Retard</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Les tâches seront chargées dynamiquement -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vue Kanban -->
+                <div class="view-content" id="kanbanView">
+                    <div class="kanban-board">
+                        <div class="kanban-column">
+                            <div class="column-header">
+                                <h3>À faire</h3>
+                                <span class="column-count" id="todoCount">0</span>
+                            </div>
+                            <div class="column-content" id="todoColumn">
+                                <!-- Tâches à faire -->
+                            </div>
+                        </div>
+                        <div class="kanban-column">
+                            <div class="column-header">
+                                <h3>En cours</h3>
+                                <span class="column-count" id="inProgressCount">0</span>
+                            </div>
+                            <div class="column-content" id="inProgressColumn">
+                                <!-- Tâches en cours -->
+                            </div>
+                        </div>
+                        <div class="kanban-column">
+                            <div class="column-header">
+                                <h3>Terminée</h3>
+                                <span class="column-count" id="doneCount">0</span>
+                            </div>
+                            <div class="column-content" id="doneColumn">
+                                <!-- Tâches terminées -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vue Calendrier -->
+                <div class="view-content" id="calendarView">
+                    <div class="card">
+                        <div class="calendar-header">
+                            <button class="btn-icon" id="prevMonth">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h3 id="currentMonth">Mois en cours</h3>
+                            <button class="btn-icon" id="nextMonth">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="calendar" id="taskCalendar">
+                            <!-- Le calendrier sera généré dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour créer/modifier une tâche -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTaskTitle">Nouvelle Tâche</h3>
+                <button class="modal-close" onclick="closeTaskModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="taskTitle">Titre *</label>
+                            <input type="text" id="taskTitle" required placeholder="Titre de la tâche">
+                        </div>
+                        <div class="form-group">
+                            <label for="taskProject">Projet *</label>
+                            <select id="taskProject" required>
+                                <option value="">Sélectionnez un projet</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskService">Service associé *</label>
+                            <select id="taskService" required>
+                                <option value="">Sélectionnez un service</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskEmployee">Assigné à *</label>
+                            <select id="taskEmployee" required>
+                                <option value="">Sélectionnez un employé</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskPriority">Priorité *</label>
+                            <select id="taskPriority" required>
+                                <option value="basse">Basse</option>
+                                <option value="moyenne" selected>Moyenne</option>
+                                <option value="haute">Haute</option>
+                                <option value="urgente">Urgente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDueDate">Date de fin prévue *</label>
+                            <input type="date" id="taskDueDate" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="taskDescription">Description détaillée</label>
+                            <textarea id="taskDescription" rows="4" placeholder="Description de la tâche..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeTaskModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="saveTask()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour voir les détails d'une tâche -->
+    <div id="taskDetailModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="detailTaskTitle">Détails de la Tâche</h3>
+                <button class="modal-close" onclick="closeTaskDetailModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="task-detail-content">
+                    <div class="detail-section">
+                        <h4>Informations générales</h4>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <label>Projet:</label>
+                                <span id="detailProject"></span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Service:</label>
+                                <span id="detailService"></span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Assigné à:</label>
+                                <span id="detailEmployee"></span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Priorité:</label>
+                                <span id="detailPriority"></span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Date de fin:</label>
+                                <span id="detailDueDate"></span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Statut:</label>
+                                <span id="detailStatus"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h4>Description</h4>
+                        <div class="description-content" id="detailDescription">
+                            <!-- Le contenu du formulaire rempli par le client -->
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h4>Livrables</h4>
+                        <div class="deliverables-section">
+                            <div class="upload-area" id="uploadArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Glissez-déposez vos fichiers ici</p>
+                                <small>Formats: JPG, PNG, PDF, PSD, MP4 (Max. 10MB)</small>
+                                <input type="file" id="deliverableInput" multiple style="display: none;">
+                            </div>
+                            <div class="uploaded-files" id="detailUploadedFiles">
+                                <!-- Fichiers uploadés -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section spécifique pour les diffusions publicitaires -->
+                    <div class="detail-section" id="diffusionSection" style="display: none;">
+                        <h4>Informations de Diffusion</h4>
+                        <div class="diffusion-form" id="diffusionForm">
+                            <!-- Formulaire spécifique pour les diffusions -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeTaskDetailModal()">Fermer</button>
+                <button type="button" class="btn btn-primary" onclick="updateTaskStatus()">Mettre à jour le statut</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/taches.js"></script>
+</body>
+</html>

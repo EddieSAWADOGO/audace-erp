@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/dashboard.css">
+     <link rel="stylesheet" href="css/components/modal.css">
+</head>
+<body>
+    <!-- Le menu latéral sera injecté ici par JavaScript -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Contenu Principal -->
+    <div class="main-content">
+        <!-- L'en-tête sera injecté ici par JavaScript -->
+        <div id="header-container"></div>
+        
+        <!-- Contenu spécifique à la page du tableau de bord -->
+        <main>
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>42</h3>
+                        <p>Clients Actifs</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>18</h3>
+                        <p>Projets en Cours</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>27</h3>
+                        <p>Tâches à Traiter</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>3</h3>
+                        <p>Problèmes Urgents</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Colonne de gauche -->
+                <div>
+                    <div class="dashboard-card">
+                        <h3>Projets Récents</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nom du Projet</th>
+                                        <th>Client</th>
+                                        <th>Date de Fin</th>
+                                        <th>Avancement</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Campagne Facebook Automne</td>
+                                        <td>Bella Mode</td>
+                                        <td>30/10/2025</td>
+                                        <td>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 75%"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Refonte Site Web</td>
+                                        <td>Tech Solutions BF</td>
+                                        <td>15/12/2025</td>
+                                        <td>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 20%"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Stratégie TikTok</td>
+                                        <td>Jeune Créateur</td>
+                                        <td>20/10/2025</td>
+                                        <td>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 100%"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Colonne de droite -->
+                <div>
+                    <div class="dashboard-card">
+                        <h3>Actions Rapides</h3>
+                        <div class="quick-actions">
+                            <div class="quick-action-btn" onclick="window.location.href='projets.html'">
+                                <i class="fas fa-plus"></i>
+                                <span>Nouveau Projet</span>
+                            </div>
+                            <div class="quick-action-btn" onclick="window.location.href='clients.html'">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Ajouter Client</span>
+                            </div>
+                            <div class="quick-action-btn" onclick="window.location.href='taches.html'">
+                                <i class="fas fa-tasks"></i>
+                                <span>Voir Tâches</span>
+                            </div>
+                            <div class="quick-action-btn" onclick="window.location.href='comptabilite.html'">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Rapports</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Script spécifique à la page pour l'animation des barres de progression
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300); // Délai pour que l'animation soit visible
+            });
+        });
+    </script>
+</body>
+</html>

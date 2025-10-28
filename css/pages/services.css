@@ -1,0 +1,333 @@
+/* ==========================================================================
+   Styles spécifiques à la page des services
+   ========================================================================== */
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.service-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    animation: cardAppear 0.6s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.service-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.service-icon.diffusion {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.service-icon.graphique {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+}
+
+.service-icon.video {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.service-icon.standard {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.service-badge {
+    position: absolute;
+    top: 65px;
+    right: 20px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-diffusion {
+    background: #f3e8ff;
+    color: #7c3aed;
+    border: 1px solid #ddd6fe;
+}
+
+.badge-graphique {
+    background: #ecfeff;
+    color: #0891b2;
+    border: 1px solid #a5f3fc;
+}
+
+.badge-video {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.badge-standard {
+    background: #f0fdf4;
+    color: #059669;
+    border: 1px solid #bbf7d0;
+}
+
+.badge-page-gestion {
+    background: #e0e7ff;
+    color: #3730a3;
+    border: 1px solid #c7d2fe;
+}
+
+.service-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.service-description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.service-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 10px;
+}
+
+.service-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.detail-value {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.service-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.feature-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.service-footer {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.service-footer .btn {
+    flex: 1;
+    justify-content: center;
+}
+
+/* Carte d'ajout de service */
+.add-service-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 2px dashed #cbd5e1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    transition: all 0.3s ease;
+}
+
+.add-service-card:hover {
+    border-color: #2563eb;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+    transform: translateY(-2px);
+}
+
+.add-service-content {
+    text-align: center;
+    color: #64748b;
+    transition: all 0.3s ease;
+}
+
+.add-service-card:hover .add-service-content {
+    color: #2563eb;
+}
+
+.add-service-content i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.7;
+}
+
+.add-service-card:hover .add-service-content i {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.add-service-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: inherit;
+}
+
+.add-service-content p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Styles pour les champs spéciaux */
+.special-fields {
+    margin: 20px 0;
+    animation: slideDown 0.3s ease;
+}
+
+.info-card {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bae6fd;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.info-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.info-header i {
+    color: #0369a1;
+    font-size: 1.5rem;
+}
+
+.info-header h4 {
+    color: #0369a1;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.info-content ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.info-content li {
+    margin-bottom: 8px;
+    color: #475569;
+}
+
+.info-note {
+    font-style: italic;
+    color: #64748b;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #cbd5e1;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-footer {
+        flex-direction: column;
+    }
+    
+    .service-details {
+        padding: 12px;
+    }
+    
+    .service-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .service-actions {
+        align-self: flex-end;
+    }
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

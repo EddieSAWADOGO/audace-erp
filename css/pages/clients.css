@@ -1,0 +1,163 @@
+/* ==========================================================================
+   Styles spécifiques à la page Clients
+   ========================================================================== */
+
+
+
+/* Informations client dans le tableau */
+.client-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.client-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.client-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.client-details strong {
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.client-details span {
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Badges */
+.badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-particulier {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.badge-pme {
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.badge-sarl {
+    background: #fef7cd;
+    color: #854d0e;
+}
+
+.badge-sa {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-active {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.status-inactive {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+/* Boutons d'action spécifiques */
+.btn-view:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-edit:hover {
+    background: var(--warning);
+    color: white;
+}
+
+.btn-delete:hover {
+    background: var(--error);
+    color: white;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.pagination-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.pagination-btn:disabled {
+    background: #f8fafc;
+    color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* Responsive Clients */
+@media (max-width: 768px) {
+    .header-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .header-filters {
+        justify-content: space-between;
+        width: 100%;
+    }
+}

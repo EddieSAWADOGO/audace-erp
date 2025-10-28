@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/facture-view.css">
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête avec logo -->
+        <div class="document-header">
+            <div class="company-brand">
+                <div class="company-details">
+                    <img src="assets/logoaudace.jpg" alt="Audace Digicom" class="logo">
+                    <p>Communication Digitale & Marketing</p>
+                    <p class="company-slogan">Excellence Digitale, Innovation Continue</p>    
+                </div>
+            </div>
+            <div class="document-meta">
+                <div class="document-type" id="documentType">FACTURE</div>
+                <div class="document-ref" id="documentRef">AD-FACT-2024-001</div>
+                <div class="document-date" id="documentDate">15 Octobre 2024</div>
+                <div class="document-status status-unpaid" id="documentStatus">En attente de paiement</div>
+            </div>
+        </div>
+
+        <!-- Parties concernées -->
+        <div class="parties-section">
+            <div class="party-card emitter">
+                <div class="party-header">
+                    <i class="fas fa-building"></i>
+                    <h3>Émetteur</h3>
+                </div>
+                <div class="party-info">
+                    <p class="party-name">AUDACE DIGICOM</p>
+                    <p>IFU: XXXXXXXX / RCCM: BF-XXXXX</p>
+                    <p>Tél: +226 XX XX XX XX </p>
+                    <p>Email: contact@audacedigicom.bf</p>
+                </div>
+            </div>
+            
+            <div class="party-card client">
+                <div class="party-header">
+                    <i class="fas fa-user"></i>
+                    <h3>Client</h3>
+                </div>
+                <div class="party-info">
+                    <p class="party-name" id="clientName">BELLA MODE SARL</p>
+                    <p id="clientContact">Sophie Kaboré</p>
+                    <p id="clientPhone">+226 70 12 34 56</p>
+                    <p id="clientEmail">contact@bellamode.bf</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Détails du projet -->
+        <div class="project-section">
+            <div class="project-header">
+                <i class="fas fa-project-diagram"></i>
+                <h3>Détails du Projet</h3>
+            </div>
+            <div class="project-info">
+                <p><strong>Référence:</strong> <span id="projectRef">AD-PROJ-2024-015</span></p>
+                <p><strong>Période:</strong> <span id="projectPeriod">15 Oct - 30 Oct 2024</span></p>
+            </div>
+        </div>
+
+        <!-- Services et totaux -->
+        <div class="financial-section">
+            <div class="services-container">
+                <table class="services-table">
+                    <thead>
+                        <tr>
+                            <th class="service-desc">Description</th>
+                            <th class="service-qty">Qté</th>
+                            <th class="service-price">Prix Unitaire</th>
+                            <th class="service-total">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="servicesList">
+                        <!-- Rempli dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="totals-container">
+                <div class="totals-card">
+                    <h4>Récapitulatif</h4>
+                    <div class="total-line">
+                        <span>Sous-total:</span>
+                        <span id="subtotal">225.000 FCFA</span>
+                    </div>
+                    <div class="total-line">
+                        <span>TVA (0%):</span>
+                        <span id="tva">0 FCFA</span>
+                    </div>
+                    <div class="total-line total-ttc">
+                        <span>Total TTC:</span>
+                        <span id="total">225.000 FCFA</span>
+                    </div>
+                    <div class="payment-info">
+                        <p><i class="fas fa-info-circle"></i> <strong>Mode de paiement:</strong> <span id="paymentMethod">Mobile Money</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- Notes et conditions -->
+        <div class="notes-section">
+            <div class="notes-card">
+                <div class="notes-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Notes</h3>
+                </div>
+                <div class="notes-content">
+                    <p id="documentNotes"></p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Pied de page -->
+        <div class="document-footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p><i class="fas fa-shield-alt"></i> Document émis électroniquement - Valable sans signature</p>
+                    <p></i> Audace Digicom - Entreprise 100% Burkinabè</p>
+                </div>
+                <div class="footer-legal">
+                    <p>SARL au capital de 1.000.000 FCFA - Siège social: Ouagadougou</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="document-actions no-print">
+            <button class="btn btn-print" onclick="window.print()">
+                <i class="fas fa-print"></i>
+                Imprimer
+            </button>
+            <button class="btn btn-pdf" onclick="downloadPDF()">
+                <i class="fas fa-file-pdf"></i>
+                Télécharger PDF
+            </button>
+            <button class="btn btn-close" onclick="closeDocument()">
+                <i class="fas fa-times"></i>
+                Fermer
+            </button>
+        </div>
+    </div>
+
+    <script src="js/facture-view.js"></script>
+</body>
+</html>

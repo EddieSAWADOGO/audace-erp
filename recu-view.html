@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reçu de Paiement - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/pages/recu-view.css">
+</head>
+<body>
+    <div class="container">
+        <!-- En-tête sobre -->
+        <div class="document-header">
+            <div class="header-content">
+                
+                <div class="document-titles">
+                    <img src="assets/logoaudace.jpg" alt="Audace Digicom" class="logo">
+                    <h1>Reçu de Paiement</h1>
+                    <div class="document-ref" id="reference">AD-RECU-2024-001</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation -->
+        <div class="confirmation-section">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Paiement Confirmé</h2>
+            <p>Votre règlement a été enregistré avec succès</p>
+        </div>
+
+        <!-- Informations principales -->
+        <div class="main-info">
+            <div class="info-card">
+                <div class="info-item">
+                    <span class="label">Client</span>
+                    <span class="value" id="clientName">Bella Mode SARL</span>
+                </div>
+                <div class="info-item highlight">
+                    <span class="label">Montant Reçu</span>
+                    <span class="value amount" id="amount">112.500 FCFA</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Mode de Paiement</span>
+                    <span class="value" id="paymentMethod">Mobile Money</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Date</span>
+                    <span class="value" id="paymentDate">15 Oct 2024</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services réglés -->
+        <div class="services-section">
+            <h3><i class="fas fa-list-check"></i> Services Réglés</h3>
+            <div class="services-table">
+                <div class="service-header">
+                    <span>Description</span>
+                    <span>Montant</span>
+                </div>
+                <div class="services-list" id="servicesList">
+                    <!-- Rempli dynamiquement -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Message de remerciement -->
+        <div class="thank-you">
+            <div class="thank-you-content">
+                <p>Merci pour votre confiance !</p>
+            </div>
+            <div class="contact-info">
+                <p><i class="fab fa-whatsapp"></i> +226 XX XX XX XX</p>
+                <p><i class="fas fa-envelope"></i> contact@audacedigicom.bf</p>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="document-actions no-print">
+            <button class="btn btn-download" onclick="downloadPDF()">
+                <i class="fas fa-download"></i>
+                Télécharger
+            </button>
+            <button class="btn btn-print" onclick="window.print()">
+                <i class="fas fa-print"></i>
+                Imprimer
+            </button>
+            <button class="btn btn-close" onclick="closeDocument()">
+                <i class="fas fa-times"></i>
+                Fermer
+            </button>
+        </div>
+    </div>
+
+    <script src="js/recu-view.js"></script>
+</body>
+</html>

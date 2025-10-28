@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Client - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/communication.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+</head>
+<body>
+    <!-- Le menu latéral sera injecté ici par JavaScript -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Contenu Principal -->
+    <div class="main-content">
+        <!-- L'en-tête sera injecté ici par JavaScript -->
+        <div id="header-container"></div>
+        
+        <!-- Contenu spécifique à la communication -->
+        <main>
+            <!-- En-tête de page -->
+            <div class="page-header">
+                
+                    <button class="btn btn-primary" onclick="openTemplateModal()">
+                        <i class="fas fa-plus"></i>
+                        Nouveau Template
+                    </button>
+                    
+                
+                    <button class="btn btn-secondary" onclick="loadNotifications()">
+                        <i class="fas fa-sync-alt"></i>
+                        Actualiser
+                    </button>
+                    <select class="filter-select" id="templateFilter">
+                        <option value="">Tous les types</option>
+                        <option value="facture">Envoi de facture</option>
+                        <option value="debut-campagne">Début de campagne</option>
+                        <option value="fin-campagne">Fin de campagne</option>
+                        <option value="rapport">Envoi de rapport</option>
+                        <option value="rappel">Rappel de paiement</option>
+                    </select>
+                
+            </div>
+
+            <!-- Statistiques de communication -->
+            <div class="com-stats">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="sentMessages">0</h3>
+                        <p>Messages envoyés</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pendingNotifications">0</h3>
+                        <p>Notifications en attente</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="activeTemplates">0</h3>
+                        <p>Templates actifs</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vue des notifications -->
+            <div class="com-section">
+                <div class="section-header">
+                    <h2>Notifications en Attente</h2>
+                    <span class="section-badge" id="notificationsCount">0</span>
+                </div>
+                <div class="notifications-container" id="notificationsContainer">
+                    <!-- Les notifications seront chargées dynamiquement -->
+                    <div class="empty-state">
+                        <i class="fas fa-bell-slash"></i>
+                        <h4>Aucune notification en attente</h4>
+                        <p>Les notifications apparaîtront ici automatiquement</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vue des templates -->
+            <div class="com-section">
+                <div class="section-header">
+                    <h2>Templates de Messages</h2>
+                    <span class="section-badge" id="templatesCount">0</span>
+                </div>
+                <div class="templates-grid" id="templatesGrid">
+                    <!-- Les templates seront chargés dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Historique des communications -->
+            <div class="com-section">
+                <div class="section-header">
+                    <h2>Historique des Communications</h2>
+                    <button class="btn btn-outline btn-sm" onclick="clearHistory()">
+                        <i class="fas fa-trash"></i>
+                        Effacer l'historique
+                    </button>
+                </div>
+                <div class="history-container">
+                    <div class="table-container">
+                        <table id="communicationHistory">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Client</th>
+                                    <th>Type de message</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- L'historique sera chargé dynamiquement -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour créer/modifier un template -->
+    <div id="templateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="templateModalTitle">Nouveau Template</h3>
+                <button class="modal-close" onclick="closeTemplateModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="templateForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="templateName">Nom du template *</label>
+                            <input type="text" id="templateName" required placeholder="Ex: Notification fin de campagne">
+                        </div>
+                        <div class="form-group">
+                            <label for="templateType">Type de message *</label>
+                            <select id="templateType" required>
+                                <option value="">Sélectionnez un type</option>
+                                <option value="facture">Envoi de facture</option>
+                                <option value="debut-campagne">Début de campagne</option>
+                                <option value="fin-campagne">Fin de campagne</option>
+                                <option value="rapport">Envoi de rapport</option>
+                                <option value="rappel">Rappel de paiement</option>
+                                <option value="autres">Autres</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="templateMessage">Message *</label>
+                            <textarea id="templateMessage" rows="6" required placeholder="Rédigez votre message template..."></textarea>
+                            <div class="message-variables">
+                                <span class="variables-label">Variables disponibles:</span>
+                                <div class="variables-list">
+                                    <span class="variable-tag" onclick="insertVariable('{client_nom}')">{client_nom}</span>
+                                    <span class="variable-tag" onclick="insertVariable('{client_entreprise}')">{client_entreprise}</span>
+                                    <span class="variable-tag" onclick="insertVariable('{projet_nom}')">{projet_nom}</span>
+                                    <span class="variable-tag" onclick="insertVariable('{service_nom}')">{service_nom}</span>
+                                    <span class="variable-tag" onclick="insertVariable('{montant}')">{montant}</span>
+                                    <span class="variable-tag" onclick="insertVariable('{date_livraison}')">{date_livraison}</span>
+                                    <span class="variable-tag" onclick="insertVariable('{lien_facture}')">{lien_facture}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="templateActive" checked>
+                                Template actif
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeTemplateModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="saveTemplate()">Enregistrer le Template</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour envoyer un message -->
+    <div id="sendMessageModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3>Envoyer un Message</h3>
+                <button class="modal-close" onclick="closeSendMessageModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="message-preview">
+                    <div class="preview-header">
+                        <div class="client-info">
+                            <div class="client-avatar" id="previewClientAvatar">BM</div>
+                            <div class="client-details">
+                                <strong id="previewClientName">Bella Mode SARL</strong>
+                                <span id="previewClientPhone">+226 70 12 34 56</span>
+                            </div>
+                        </div>
+                        <div class="message-type">
+                            <span class="type-badge" id="previewMessageType">Fin de campagne</span>
+                        </div>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p id="previewMessageText">Votre message apparaîtra ici...</p>
+                            <span class="message-time" id="previewMessageTime"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="message-actions">
+                    <button class="btn btn-primary" onclick="sendWhatsAppMessage()">
+                        <i class="fab fa-whatsapp"></i>
+                        Ouvrir WhatsApp
+                    </button>
+                    <button class="btn btn-outline" onclick="copyMessageToClipboard()">
+                        <i class="fas fa-copy"></i>
+                        Copier le message
+                    </button>
+                </div>
+                
+                <div class="attached-files" id="attachedFiles">
+                    <!-- Fichiers joints apparaîtront ici -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/communication.js"></script>
+</body>
+</html>

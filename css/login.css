@@ -1,0 +1,391 @@
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #1e293b;
+    --text-light: #f8fafc;
+    --text-dark: #374151;
+    --text-muted: #6b7280;
+    --border-light: #e5e7eb;
+    --bg-light: #f9fafb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    min-height: 600px;
+}
+
+/* --- Section Marque (Gauche) --- */
+.brand-section {
+    flex: 1;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    padding: 48px;
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-content {
+    position: relative; 
+    z-index: 1;
+}
+
+.brand-logo {
+    max-width: 200px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+}
+
+.brand-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.brand-subtitle {
+    font-size: 1rem;
+    font-weight: 300;
+    opacity: 0.9;
+    max-width: 300px;
+}
+
+/* --- Section Connexion (Droite) --- */
+.login-section {
+    flex: 1;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: white;
+}
+
+.login-header {
+    text-align: left;
+    margin-bottom: 32px;
+}
+
+.login-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--secondary);
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.input-container {
+    position: relative;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    background: var(--bg-light);
+    color: var(--text-dark);
+}
+
+.form-input::placeholder {
+    color: #9ca3af;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus + .input-icon {
+    color: var(--primary);
+}
+
+.btn-login {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.security-warning {
+    margin-top: 24px;
+    text-align: left;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background-color: var(--bg-light);
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #e62525;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.security-warning i {
+    margin-top: 2px;
+    color: #e62525;
+}
+
+/* --- NOUVELLES ANIMATIONS PROFESSIONNELLES --- */
+
+/* Animation de pulsation subtile pour le logo */
+@keyframes logo-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+.brand-logo {
+    animation: logo-pulse 8s ease-in-out infinite;
+}
+
+/* Animation de fond en mouvement subtil */
+@keyframes gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.brand-section {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, #3b82f6 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 15s ease infinite;
+}
+
+/* Animation de connexion de données */
+@keyframes data-connect {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(-10px) scale(1.05);
+    }
+}
+
+/* Points de connexion animés */
+.data-point {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    animation: data-connect 4s ease-in-out infinite;
+    z-index: 0;
+}
+
+.data-point:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.data-point:nth-child(2) {
+    top: 40%;
+    left: 85%;
+    animation-delay: 0.5s;
+}
+
+.data-point:nth-child(3) {
+    top: 70%;
+    left: 15%;
+    animation-delay: 1s;
+}
+
+.data-point:nth-child(4) {
+    top: 85%;
+    left: 70%;
+    animation-delay: 1.5s;
+}
+
+.data-point:nth-child(5) {
+    top: 30%;
+    left: 50%;
+    animation-delay: 2s;
+}
+
+.data-point:nth-child(6) {
+    top: 60%;
+    left: 40%;
+    animation-delay: 2.5s;
+}
+
+/* Lignes de connexion animées */
+@keyframes line-pulse {
+    0%, 100% {
+        opacity: 0.1;
+        transform: scaleX(0.8);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scaleX(1);
+    }
+}
+
+.connection-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    z-index: 0;
+    animation: line-pulse 6s ease-in-out infinite;
+}
+
+.connection-line:nth-child(7) {
+    top: 25%;
+    left: 10%;
+    width: 30%;
+    animation-delay: 0s;
+}
+
+.connection-line:nth-child(8) {
+    top: 45%;
+    left: 60%;
+    width: 25%;
+    animation-delay: 1s;
+}
+
+.connection-line:nth-child(9) {
+    top: 75%;
+    left: 20%;
+    width: 40%;
+    animation-delay: 2s;
+}
+
+/* Animation de texte subtile */
+@keyframes text-glow {
+    0%, 100% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+    }
+}
+
+.brand-title {
+    animation: text-glow 6s ease-in-out infinite;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 800px) {
+    .login-container {
+        flex-direction: column;
+        max-width: 450px;
+        min-height: auto;
+    }
+    
+    .brand-section {
+        padding: 32px;
+        min-height: auto;
+    }
+
+    .brand-logo {
+        max-width: 80px;
+        margin-bottom: 16px;
+    }
+    .brand-title {
+        font-size: 1.5rem;
+    }
+    .brand-subtitle {
+        display: none;
+    }
+
+    .login-section {
+        padding: 32px;
+    }
+
+    /* On cache les animations sur petit écran */
+    .data-point,
+    .connection-line {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+    }
+    
+    .login-container {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    .login-section {
+        justify-content: flex-start; 
+        padding-top: 40px;
+    }
+}

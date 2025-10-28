@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail de la Demande Client - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/projet-detail.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+</head>
+<body>
+    <!-- Le menu latéral sera injecté ici par JavaScript -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Contenu Principal -->
+    <div class="main-content">
+        <!-- L'en-tête sera injecté ici par JavaScript -->
+        <div id="header-container"></div>
+        
+        <!-- Contenu spécifique au détail de la demande client -->
+        <main>
+            <!-- En-tête de la demande -->
+            <div class="project-header">
+                <div class="project-info">
+                    <div class="project-title-section">
+                        <h1 class="project-title" id="projectTitle">Demande Client - Bella Mode</h1>
+                        <div class="project-meta">
+                            <span class="project-client">
+                                <i class="fas fa-user"></i>
+                                <span id="clientName">Bella Mode SARL</span>
+                            </span>
+                            <span class="project-date">
+                                <i class="fas fa-calendar"></i>
+                                <span id="projectDate">Créé le 15/10/2024</span>
+                            </span>
+                            <span class="project-ref">
+                                <i class="fas fa-hashtag"></i>
+                                Réf: <span id="projectRef">AD-2024-001</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="project-status">
+                        <span class="status-badge" id="projectStatus">En Cours</span>
+                        <span class="priority-badge" id="projectPriority">Haute Priorité</span>
+                    </div>
+                </div>
+                
+                <div class="project-actions">
+                    <button class="btn btn-secondary" onclick="editProject()">
+                        <i class="fas fa-edit"></i>
+                        Modifier
+                    </button>
+                    <button class="btn btn-primary" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                        Contacter le Client
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grille de contenu -->
+            <div class="project-grid">
+                <!-- Colonne de gauche -->
+                <div class="project-main">
+                    <!-- Informations de la demande client -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Informations de la Demande</h2>
+                            <button class="btn btn-outline" onclick="editClientNeeds()">
+                                <i class="fas fa-edit"></i>
+                                Modifier les besoins
+                            </button>
+                        </div>
+                        <div class="demande-content">
+                            <div class="demande-section">
+                                <h3>Besoins du Client</h3>
+                                <div class="needs-display" id="clientNeedsDisplay">
+                                    <!-- Les données du formulaire client seront affichées ici -->
+                                    <div class="form-data-item">
+                                        <label>Objectif de la campagne:</label>
+                                        <span>Augmenter la visibilité de la nouvelle collection Automne-Hiver</span>
+                                    </div>
+                                    <div class="form-data-item">
+                                        <label>Public cible:</label>
+                                        <span>Femmes 25-45 ans, intéressées par la mode</span>
+                                    </div>
+                                    <div class="form-data-item">
+                                        <label>Budget estimé:</label>
+                                        <span>200,000 FCFA</span>
+                                    </div>
+                                    <div class="form-data-item">
+                                        <label>Délai souhaité:</label>
+                                        <span>4 semaines</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="demande-section">
+                                <h3>Documents fournis</h3>
+                                <div class="documents-list" id="clientDocuments">
+                                    <!-- Documents uploadés par le client -->
+                                    <div class="document-item">
+                                        <i class="fas fa-file-image document-icon"></i>
+                                        <div class="document-info">
+                                            <span class="document-name">charte-graphique.pdf</span>
+                                            <span class="document-size">2.1 MB</span>
+                                        </div>
+                                        <button class="btn-icon" onclick="downloadDocument('charte-graphique.pdf')">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Services de la demande -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Services Commandés</h2>
+                            <button class="btn btn-primary" onclick="openAddServiceModal()">
+                                <i class="fas fa-plus"></i>
+                                Ajouter un Service
+                            </button>
+                        </div>
+                        <div class="services-container">
+                            <div class="services-list" id="servicesList">
+                                <!-- Services seront ajoutés dynamiquement -->
+                            </div>
+                            
+                            <div class="services-summary">
+                                <div class="summary-item">
+                                    <span class="summary-label">Total HT:</span>
+                                    <span class="summary-value" id="totalHT">0 FCFA</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">TVA (18%):</span>
+                                    <span class="summary-value" id="totalTVA">0 FCFA</span>
+                                </div>
+                                <div class="summary-item total">
+                                    <span class="summary-label">Total TTC:</span>
+                                    <span class="summary-value" id="totalTTC">0 FCFA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tâches générées -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Tâches Générées</h2>
+                            <div class="card-actions">
+                                <span class="tasks-count">
+                                    <span id="completedTasks">0</span>/<span id="totalTasks">0</span> terminées
+                                </span>
+                            </div>
+                        </div>
+                        <div class="tasks-container">
+                            <div class="tasks-list" id="tasksList">
+                                <!-- Tâches générées automatiquement -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colonne de droite -->
+                <div class="project-sidebar">
+                    <!-- Informations financières -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Situation Financière</h2>
+                        </div>
+                        <div class="financial-info">
+                            <div class="financial-item">
+                                <span class="financial-label">Montant Total:</span>
+                                <span class="financial-value" id="financialTotal">0 FCFA</span>
+                            </div>
+                            <div class="financial-item">
+                                <span class="financial-label">Montant Payé:</span>
+                                <span class="financial-value" id="financialPaid">0 FCFA</span>
+                            </div>
+                            <div class="financial-item highlight">
+                                <span class="financial-label">Reste à Payer:</span>
+                                <span class="financial-value" id="financialRemaining">0 FCFA</span>
+                            </div>
+                            <div class="financial-item">
+                                <span class="financial-label">Statut Paiement:</span>
+                                <span class="financial-status" id="paymentStatus">Non payé</span>
+                            </div>
+                        </div>
+                        <div class="financial-actions">
+                            <button class="btn btn-outline" onclick="recordPayment()" style="width: 100%; margin-bottom: 8px;">
+                                <i class="fas fa-money-bill-wave"></i>
+                                Enregistrer Paiement
+                            </button>
+                            <button class="btn btn-primary" onclick="generateInvoice()" style="width: 100%;">
+                                <i class="fas fa-receipt"></i>
+                                Générer Facture
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dates importantes -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Échéances</h2>
+                        </div>
+                        <div class="dates-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-date" id="startDate">15/10/2024</div>
+                                <div class="timeline-content">
+                                    <strong>Début du projet</strong>
+                                    <p>Demande confirmée</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item upcoming">
+                                <div class="timeline-date" id="deliveryDate">30/10/2024</div>
+                                <div class="timeline-content">
+                                    <strong>Livraison prévue</strong>
+                                    <p>Fin des services</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Historique des modifications -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Historique</h2>
+                        </div>
+                        <div class="history-timeline">
+                            <div class="history-item">
+                                <div class="history-time">Aujourd'hui, 10:30</div>
+                                <div class="history-content">
+                                    <strong>Service ajouté</strong>
+                                    <p>Création Graphique par Jean Traoré</p>
+                                </div>
+                            </div>
+                            <div class="history-item">
+                                <div class="history-time">Hier, 14:15</div>
+                                <div class="history-content">
+                                    <strong>Demande créée</strong>
+                                    <p>Par Sophie Kaboré</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour ajouter un service -->
+    <div id="addServiceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Ajouter un Service</h3>
+                <button class="modal-close" onclick="closeAddServiceModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addServiceForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="serviceSelect">Service *</label>
+                            <select id="serviceSelect" required onchange="onServiceChange()">
+                                <option value="">Sélectionnez un service</option>
+                                <option value="1" data-price="150000" data-duration="30">Gestion de Campagnes Publicitaires</option>
+                                <option value="2" data-price="75000" data-duration="7">Création Graphique</option>
+                                <option value="3" data-price="200000" data-duration="15">Production Vidéo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceAssignee">Assigné à *</label>
+                            <select id="serviceAssignee" required>
+                                <option value="">Sélectionnez un employé</option>
+                                <option value="marie">Marie Kaboré</option>
+                                <option value="jean">Jean Traoré</option>
+                                <option value="pierre">Pierre Sawadogo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="servicePrice">Prix (FCFA) *</label>
+                            <input type="number" id="servicePrice" required placeholder="Prix du service">
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceDuration">Durée (jours) *</label>
+                            <input type="number" id="serviceDuration" required placeholder="Durée estimée">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="serviceNotes">Notes (optionnel)</label>
+                            <textarea id="serviceNotes" rows="3" placeholder="Informations supplémentaires..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeAddServiceModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="addServiceToProject()">Ajouter le Service</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour modifier un service -->
+    <div id="editServiceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Modifier le Service</h3>
+                <button class="modal-close" onclick="closeEditServiceModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editServiceForm">
+                    <input type="hidden" id="editServiceId">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="editServicePrice">Prix (FCFA) *</label>
+                            <input type="number" id="editServicePrice" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editServiceDuration">Durée (jours) *</label>
+                            <input type="number" id="editServiceDuration" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editServiceAssignee">Assigné à *</label>
+                            <select id="editServiceAssignee" required>
+                                <option value="">Sélectionnez un employé</option>
+                                <option value="marie">Marie Kaboré</option>
+                                <option value="jean">Jean Traoré</option>
+                                <option value="pierre">Pierre Sawadogo</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="editServiceNotes">Notes</label>
+                            <textarea id="editServiceNotes" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeEditServiceModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="updateService()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/projet-detail.js"></script>
+</body>
+</html>

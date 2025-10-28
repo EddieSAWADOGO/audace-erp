@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comptabilité - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/comptabilite.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+</head>
+<body>
+    <!-- Le menu latéral sera injecté ici par JavaScript -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Contenu Principal -->
+    <div class="main-content">
+        <!-- L'en-tête sera injecté ici par JavaScript -->
+        <div id="header-container"></div>
+        
+        <!-- Contenu spécifique à la comptabilité -->
+        <main>
+            <!-- En-tête de page -->
+            <div class="page-header">
+                <div class="header-actions">
+                    <div class="action-group">
+                        <button class="btn btn-primary" onclick="openTransactionModal('entree')">
+                            <i class="fas fa-plus-circle"></i>
+                            Nouvelle Entrée
+                        </button>
+                        <button class="btn btn-secondary" onclick="openTransactionModal('sortie')">
+                            <i class="fas fa-minus-circle"></i>
+                            Nouvelle Dépense
+                        </button>
+                        <button class="btn btn-outline" onclick="generateReports()">
+                            <i class="fas fa-file-export"></i>
+                            Exporter
+                        </button>
+                    </div>
+
+                    <div class="header-filters">
+                    <select class="filter-select" id="periodFilter">
+                        <option value="mois">Ce mois</option>
+                        <option value="trimestre">Ce trimestre</option>
+                        <option value="semestre">Ce semestre</option>
+                        <option value="annee">Cette année</option>
+                        <option value="personnalise">Période personnalisée</option>
+                    </select>
+                    <div class="date-range" id="dateRange" style="display: none;">
+                        <input type="date" id="startDate" class="date-input">
+                        <span>au</span>
+                        <input type="date" id="endDate" class="date-input">
+                    </div>
+                </div>
+
+                </div>
+                
+            </div>
+
+            <!-- Tableau de bord financier -->
+            <div class="finance-dashboard">
+                <!-- Indicateurs clés -->
+                <div class="finance-stats">
+                    <div class="stat-card revenue">
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalRevenue">0 FCFA</h3>
+                            <p>Chiffre d'Affaires</p>
+                            <span class="stat-trend positive" id="revenueTrend">+12%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card expenses">
+                        <div class="stat-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalExpenses">0 FCFA</h3>
+                            <p>Dépenses</p>
+                            <span class="stat-trend negative" id="expensesTrend">+8%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card profit">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="netProfit">0 FCFA</h3>
+                            <p>Bénéfice Net</p>
+                            <span class="stat-trend positive" id="profitTrend">+15%</span>
+                        </div>
+                    </div>
+                    <div class="stat-card cashflow">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="cashBalance">0 FCFA</h3>
+                            <p>Trésorerie</p>
+                            <span class="stat-trend neutral" id="cashflowTrend">Stable</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphiques et rapports -->
+                <div class="finance-charts">
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Évolution des Revenus et Dépenses</h3>
+                            <select class="chart-period" id="chartPeriod">
+                                <option value="30">30 jours</option>
+                                <option value="90">90 jours</option>
+                                <option value="180">6 mois</option>
+                                <option value="365">1 an</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenueExpenseChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-sidebar">
+                        <div class="mini-card">
+                            <div class="mini-card-header">
+                                <h4>Répartition des Revenus</h4>
+                            </div>
+                            <div class="mini-chart">
+                                <canvas id="revenueDistributionChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mini-card-header">
+                                <h4>Top Clients</h4>
+                            </div>
+                            <div class="top-clients" id="topClients">
+                                <!-- Liste des top clients -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journal de trésorerie -->
+            <div class="compta-section">
+                <div class="section-header">
+                    <h2>Journal de Trésorerie</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-outline btn-sm" onclick="filterTransactions('all')">
+                            Toutes
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="filterTransactions('entree')">
+                            Entrées seulement
+                        </button>
+                        <button class="btn btn-outline btn-sm" onclick="filterTransactions('sortie')">
+                            Dépenses seulement
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="cashJournalTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Référence</th>
+                                <th>Description</th>
+                                <th>Catégorie</th>
+                                <th>Client/Fournisseur</th>
+                                <th>Montant</th>
+                                <th>Solde</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Les transactions seront chargées dynamiquement -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-total">
+                                <td colspan="5"><strong>Solde Final</strong></td>
+                                <td colspan="3"><strong id="finalBalance">0 FCFA</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Gestion des factures -->
+            <div class="compta-section">
+                <div class="section-header">
+                    <h2>Factures et Documents</h2>
+                    <button class="btn btn-primary" onclick="openInvoiceModal()">
+                        <i class="fas fa-file-invoice"></i>
+                        Nouvelle Facture
+                    </button>
+                </div>
+                
+                <div class="invoices-grid">
+                    <div class="invoice-card">
+                        <div class="invoice-header">
+                            <div class="invoice-info">
+                                <span class="invoice-number">FAC-2024-001</span>
+                                <span class="invoice-status paid">Payée</span>
+                            </div>
+                            <div class="invoice-amount">150,000 FCFA</div>
+                        </div>
+                        <div class="invoice-details">
+                            <div class="invoice-client">
+                                <strong>Bella Mode SARL</strong>
+                                <span>15 Oct 2024</span>
+                            </div>
+                            <div class="invoice-actions">
+                                <button class="btn-icon" title="Voir">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn-icon" title="Télécharger">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn-icon" title="Dupliquer">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Plus de factures seront chargées dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Déclarations de paie -->
+            <div class="compta-section">
+                <div class="section-header">
+                    <h2>Déclarations de Paie</h2>
+                    <span class="section-badge" id="payrollCount">0 déclarations</span>
+                </div>
+                
+                <div class="payroll-container">
+                    <div class="table-container">
+                        <table id="payrollTable">
+                            <thead>
+                                <tr>
+                                    <th>Employé</th>
+                                    <th>Période</th>
+                                    <th>Montant convenu</th>
+                                    <th>Montant perçu</th>
+                                    <th>Date paiement</th>
+                                    <th>Preuve</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Les déclarations de paie seront chargées dynamiquement -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour nouvelle transaction -->
+    <div id="transactionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="transactionModalTitle">Nouvelle Transaction</h3>
+                <button class="modal-close" onclick="closeTransactionModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="transactionForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="transactionType">Type *</label>
+                            <select id="transactionType" required onchange="toggleTransactionFields()">
+                                <option value="entree">Entrée de fonds</option>
+                                <option value="sortie">Sortie de fonds</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="transactionDate">Date *</label>
+                            <input type="date" id="transactionDate" required value="<?php echo date('Y-m-d'); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="transactionAmount">Montant (FCFA) *</label>
+                            <input type="number" id="transactionAmount" required placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="transactionCategory">Catégorie *</label>
+                            <select id="transactionCategory" required>
+                                <option value="">Sélectionnez une catégorie</option>
+                                <!-- Catégories seront chargées dynamiquement -->
+                            </select>
+                        </div>
+                        <div class="form-group" id="clientField">
+                            <label for="transactionClient">Client</label>
+                            <select id="transactionClient">
+                                <option value="">Sélectionnez un client</option>
+                                <!-- Clients seront chargés dynamiquement -->
+                            </select>
+                        </div>
+                        <div class="form-group" id="projectField">
+                            <label for="transactionProject">Projet associé</label>
+                            <select id="transactionProject">
+                                <option value="">Sélectionnez un projet</option>
+                                <!-- Projets seront chargés dynamiquement -->
+                            </select>
+                        </div>
+                        <div class="form-group" id="supplierField" style="display: none;">
+                            <label for="transactionSupplier">Fournisseur</label>
+                            <input type="text" id="transactionSupplier" placeholder="Nom du fournisseur">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="transactionDescription">Description *</label>
+                            <textarea id="transactionDescription" rows="3" required placeholder="Description de la transaction..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="transactionProof">Preuve justificative</label>
+                            <div class="file-upload">
+                                <input type="file" id="transactionProof" accept="image/*,.pdf">
+                                <label for="transactionProof" class="file-upload-label">
+                                    <i class="fas fa-upload"></i>
+                                    <span>Télécharger une preuve</span>
+                                </label>
+                                <div class="file-preview" id="filePreview"></div>
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="transactionNotes">Notes complémentaires</label>
+                            <textarea id="transactionNotes" rows="2" placeholder="Informations supplémentaires..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeTransactionModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="saveTransaction()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour génération de rapports -->
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Générer un Rapport</h3>
+                <button class="modal-close" onclick="closeReportModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="reportForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="reportType">Type de rapport *</label>
+                            <select id="reportType" required>
+                                <option value="journal">Journal de trésorerie</option>
+                                <option value="bilan">Bilan comptable</option>
+                                <option value="resultat">Compte de résultat</option>
+                                <option value="tva">Déclaration TVA</option>
+                                <option value="fiscal">Justification fiscale</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportFormat">Format *</label>
+                            <select id="reportFormat" required>
+                                <option value="pdf">PDF</option>
+                                <option value="excel">Excel</option>
+                                <option value="csv">CSV</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportStartDate">Date de début *</label>
+                            <input type="date" id="reportStartDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportEndDate">Date de fin *</label>
+                            <input type="date" id="reportEndDate" required>
+                        </div>
+                    </div>
+                    <div class="report-preview" id="reportPreview">
+                        <h4>Aperçu du rapport</h4>
+                        <div class="preview-info">
+                            <span id="previewPeriod">Période: </span>
+                            <span id="previewType">Type: </span>
+                            <span id="previewRecords">Enregistrements: 0</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeReportModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="generateReport()">
+                    <i class="fas fa-download"></i>
+                    Générer le rapport
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/comptabilite.js"></script>
+</body>
+</html>

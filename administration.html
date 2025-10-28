@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/administration.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+</head>
+<body>
+    <!-- Le menu latéral sera injecté ici par JavaScript -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Contenu Principal -->
+    <div class="main-content">
+        <!-- L'en-tête sera injecté ici par JavaScript -->
+        <div id="header-container"></div>
+        
+        <!-- Contenu spécifique à l'administration -->
+        <main>
+
+            <!-- Vue d'ensemble -->
+            <div class="admin-overview">
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="overview-content">
+                        <h3 id="totalUsers">0</h3>
+                        <p>Utilisateurs actifs</p>
+                    </div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="overview-content">
+                        <h3 id="adminCount">0</h3>
+                        <p>Administrateurs</p>
+                    </div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                    <div class="overview-content">
+                        <h3 id="inactiveCount">0</h3>
+                        <p>Comptes inactifs</p>
+                    </div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="overview-content">
+                        <h3 id="recentActivity">0</h3>
+                        <p>Activités récentes</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- En-tête de page -->
+            <div class="page-header">
+                
+                    <button class="btn btn-primary" onclick="openUserModal()">
+                        <i class="fas fa-user-plus"></i>
+                        Nouvel Utilisateur
+                    </button>
+                    <button class="btn btn-secondary" onclick="openSettingsModal()">
+                        <i class="fas fa-cog"></i>
+                        Paramètres Entreprise
+                    </button>
+                
+                
+                    <select class="filter-select" id="roleFilter">
+                        <option value="">Tous les rôles</option>
+                        <option value="super-admin">Super Administrateur</option>
+                        <option value="gestionnaire">Gestionnaire</option>
+                        <option value="creatif">Créatif</option>
+                        <option value="comptable">Comptable</option>
+                        <option value="employe">Employé</option>
+                    </select>
+                    <select class="filter-select" id="statusFilter">
+                        <option value="">Tous les statuts</option>
+                        <option value="actif">Actifs</option>
+                        <option value="inactif">Inactifs</option>
+                    </select>
+                
+            </div>
+
+            
+
+            <!-- Gestion des utilisateurs -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Gestion des Utilisateurs</h2>
+                    <span class="section-badge" id="usersCount">0 utilisateurs</span>
+                </div>
+                
+                <div class="table-container">
+                    <table id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <th>Rôle principal</th>
+                                <th>Poste</th>
+                                <th>Contact</th>
+                                <th>Date d'ajout</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Les utilisateurs seront chargés dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Configuration des permissions -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Configuration des Rôles et Permissions</h2>
+                    <button class="btn btn-outline btn-sm" onclick="showPermissionsGuide()">
+                        <i class="fas fa-question-circle"></i>
+                        Guide des permissions
+                    </button>
+                </div>
+                
+                <div class="roles-grid">
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-icon super-admin">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="role-info">
+                                <h3>Super Administrateur</h3>
+                                <p>Accès complet à toutes les fonctionnalités</p>
+                            </div>
+                        </div>
+                        <div class="role-permissions">
+                            <h4>Permissions:</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> CRUD complet sur tous les modules</li>
+                                <li><i class="fas fa-check"></i> Gestion des utilisateurs</li>
+                                <li><i class="fas fa-check"></i> Configuration système</li>
+                                <li><i class="fas fa-check"></i> Accès aux rapports sensibles</li>
+                            </ul>
+                        </div>
+                        <div class="role-users">
+                            <span class="users-count">1 utilisateur</span>
+                        </div>
+                    </div>
+
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-icon gestionnaire">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="role-info">
+                                <h3>Gestionnaire</h3>
+                                <p>Gestion des clients, projets et services</p>
+                            </div>
+                        </div>
+                        <div class="role-permissions">
+                            <h4>Permissions:</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> CRU Clients, Projets, Services</li>
+                                <li><i class="fas fa-check"></i> CR Paiements Clients</li>
+                                <li><i class="fas fa-check"></i> CR Tâches</li>
+                                <li><i class="fas fa-times"></i> Pas d'accès comptabilité</li>
+                            </ul>
+                        </div>
+                        <div class="role-users">
+                            <span class="users-count">2 utilisateurs</span>
+                        </div>
+                    </div>
+
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-icon creatif">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div class="role-info">
+                                <h3>Créatif</h3>
+                                <p>Graphistes et community managers</p>
+                            </div>
+                        </div>
+                        <div class="role-permissions">
+                            <h4>Permissions:</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> RU Tâches assignées</li>
+                                <li><i class="fas fa-check"></i> Upload de livrables</li>
+                                <li><i class="fas fa-check"></i> Champs diffusion publicitaire</li>
+                                <li><i class="fas fa-times"></i> Accès limité aux autres modules</li>
+                            </ul>
+                        </div>
+                        <div class="role-users">
+                            <span class="users-count">3 utilisateurs</span>
+                        </div>
+                    </div>
+
+                    <div class="role-card">
+                        <div class="role-header">
+                            <div class="role-icon comptable">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="role-info">
+                                <h3>Comptable</h3>
+                                <p>Gestion financière et rapports</p>
+                            </div>
+                        </div>
+                        <div class="role-permissions">
+                            <h4>Permissions:</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> CR Dépenses</li>
+                                <li><i class="fas fa-check"></i> R Paiements Clients</li>
+                                <li><i class="fas fa-check"></i> R Rapports financiers</li>
+                                <li><i class="fas fa-times"></i> Pas de gestion des projets</li>
+                            </ul>
+                        </div>
+                        <div class="role-users">
+                            <span class="users-count">1 utilisateur</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paramètres de l'entreprise -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Informations de l'Entreprise</h2>
+                    <button class="btn btn-outline" onclick="openSettingsModal()">
+                        <i class="fas fa-edit"></i>
+                        Modifier
+                    </button>
+                </div>
+                
+                <div class="company-info">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Nom de l'entreprise:</label>
+                            <span id="companyName">Audace Digicom</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Secteur d'activité:</label>
+                            <span id="companySector">Marketing et communication digitale</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Adresse:</label>
+                            <span id="companyAddress">Ouagadougou, Burkina Faso</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Téléphone:</label>
+                            <span id="companyPhone">+226 00 00 00 00</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Email:</label>
+                            <span id="companyEmail">contact@audacedigicom.bf</span>
+                        </div>
+                        <div class="info-item">
+                            <label>IFU:</label>
+                            <span id="companyIFU">N/A</span>
+                        </div>
+                        <div class="info-item">
+                            <label>RCCM:</label>
+                            <span id="companyRCCM">N/A</span>
+                        </div>
+                        <div class="info-item">
+                            <label>Site web:</label>
+                            <span id="companyWebsite">www.audacedigicom.bf</span>
+                        </div>
+                    </div>
+                    
+                    <div class="company-logo">
+                        <img src="assets/logoaudace.jpg" alt="Logo Audace Digicom" id="companyLogo">
+                        <button class="btn btn-outline btn-sm" onclick="changeLogo()">
+                            <i class="fas fa-camera"></i>
+                            Changer le logo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journal d'activité -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2>Journal d'Activité Récente</h2>
+                    <button class="btn btn-outline btn-sm" onclick="exportActivityLog()">
+                        <i class="fas fa-download"></i>
+                        Exporter le journal
+                    </button>
+                </div>
+                
+                <div class="activity-log">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Nouvel utilisateur créé</div>
+                            <div class="activity-details">
+                                <span class="activity-user">Jean Traoré</span>
+                                <span class="activity-time">Il y a 2 heures</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Permissions modifiées</div>
+                            <div class="activity-details">
+                                <span class="activity-user">Marie Kaboré</span>
+                                <span class="activity-time">Il y a 5 heures</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Paramètres entreprise mis à jour</div>
+                            <div class="activity-details">
+                                <span class="activity-user">Administrateur</span>
+                                <span class="activity-time">Il y a 1 jour</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour créer/modifier un utilisateur -->
+    <div id="userModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="userModalTitle">Nouvel Utilisateur</h3>
+                <button class="modal-close" onclick="closeUserModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm">
+                    <div class="form-tabs">
+                        <button type="button" class="tab-btn active" data-tab="info">Informations de base</button>
+                        <button type="button" class="tab-btn" data-tab="contact">Coordonnées</button>
+                        <button type="button" class="tab-btn" data-tab="security">Sécurité</button>
+                        <button type="button" class="tab-btn" data-tab="documents">Documents</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="infoTab">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="userNom">Nom *</label>
+                                <input type="text" id="userNom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userPrenom">Prénom(s) *</label>
+                                <input type="text" id="userPrenom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userPoste">Poste *</label>
+                                <input type="text" id="userPoste" required placeholder="Ex: Graphiste, Community Manager">
+                            </div>
+                            <div class="form-group">
+                                <label for="userRole">Rôle principal *</label>
+                                <select id="userRole" required onchange="onRoleChange()">
+                                    <option value="">Sélectionnez un rôle</option>
+                                    <option value="super-admin">Super Administrateur</option>
+                                    <option value="gestionnaire">Gestionnaire Client & Projets</option>
+                                    <option value="creatif">Créatif (Graphiste/CM)</option>
+                                    <option value="comptable">Comptable</option>
+                                    <option value="employe">Employé</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Permissions supplémentaires</label>
+                                <div class="permissions-grid" id="permissionsGrid">
+                                    <!-- Les permissions seront générées dynamiquement -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="contactTab">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="userEmail">Email *</label>
+                                <input type="email" id="userEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userWhatsApp">WhatsApp *</label>
+                                <input type="tel" id="userWhatsApp" required placeholder="+226 XX XX XX XX">
+                            </div>
+                            <div class="form-group">
+                                <label for="userTelephone">Téléphone 2</label>
+                                <input type="tel" id="userTelephone" placeholder="+226 XX XX XX XX">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="userAdresse">Adresse physique</label>
+                                <textarea id="userAdresse" rows="3" placeholder="Adresse complète..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="securityTab">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="userStatut">Statut du compte *</label>
+                                <select id="userStatut" required>
+                                    <option value="actif">Actif</option>
+                                    <option value="inactif">Inactif</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="userNotes">Notes internes</label>
+                                <textarea id="userNotes" rows="4" placeholder="Informations supplémentaires sur l'utilisateur..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="documentsTab">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="userCNIB">Numéro CNIB</label>
+                                <input type="text" id="userCNIB" placeholder="Numéro de la CNIB">
+                            </div>
+                            <div class="form-group">
+                                <label for="userCNIBDateDelivrance">Date de délivrance</label>
+                                <input type="date" id="userCNIBDateDelivrance">
+                            </div>
+                            <div class="form-group">
+                                <label for="userCNIBDateExpiration">Date d'expiration</label>
+                                <input type="date" id="userCNIBDateExpiration">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="userCNIBFile">Fichier CNIB (PDF)</label>
+                                <div class="file-upload">
+                                    <input type="file" id="userCNIBFile" accept=".pdf">
+                                    <label for="userCNIBFile" class="file-upload-label">
+                                        <i class="fas fa-upload"></i>
+                                        <span>Télécharger le fichier CNIB</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeUserModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="saveUser()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour les paramètres de l'entreprise -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Paramètres de l'Entreprise</h3>
+                <button class="modal-close" onclick="closeSettingsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="settingsForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="settingsName">Nom de l'entreprise *</label>
+                            <input type="text" id="settingsName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsSector">Secteur d'activité *</label>
+                            <input type="text" id="settingsSector" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsAddress">Adresse *</label>
+                            <textarea id="settingsAddress" rows="2" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsPhone">Téléphone *</label>
+                            <input type="tel" id="settingsPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsEmail">Email *</label>
+                            <input type="email" id="settingsEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsWebsite">Site web</label>
+                            <input type="url" id="settingsWebsite" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsIFU">IFU</label>
+                            <input type="text" id="settingsIFU" placeholder="Numéro IFU">
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsRCCM">RCCM</label>
+                            <input type="text" id="settingsRCCM" placeholder="Numéro RCCM">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeSettingsModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="saveSettings()">Enregistrer les paramètres</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/administration.js"></script>
+</body>
+</html>

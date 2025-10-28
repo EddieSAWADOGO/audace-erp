@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demandes Clients - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/projets.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+</head>
+<body>
+    <!-- Le menu latéral sera injecté ici par JavaScript -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Contenu Principal -->
+    <div class="main-content">
+        <!-- L'en-tête sera injecté ici par JavaScript -->
+        <div id="header-container"></div>
+        
+        <!-- Contenu spécifique aux demandes clients -->
+        <main>
+            <!-- En-tête de page avec boutons d'action -->
+            <div class="page-header">
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="openNewDemandeModal()">
+                        <i class="fas fa-plus"></i>
+                        Nouvelle Demande
+                    </button>
+                    <div class="header-filters">
+                        <select class="filter-select" id="statusFilter">
+                            <option value="">Tous les statuts</option>
+                            <option value="brouillon">Brouillon</option>
+                            <option value="attente-formulaire">En attente formulaire</option>
+                            <option value="en-cours">En cours de réalisation</option>
+                            <option value="termine">Terminé</option>
+                            <option value="livre">Livré</option>
+                        </select>
+                        <select class="filter-select" id="clientFilter">
+                            <option value="">Tous les clients</option>
+                            <option value="1">Bella Mode SARL</option>
+                            <option value="2">Tech Solutions BF</option>
+                            <option value="3">Jeune Créateur</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cartes des demandes -->
+            <div class="demandes-grid">
+                <!-- Demande 1 -->
+                <div class="demande-card">
+                    <div class="demande-header">
+                        <div class="demande-client">
+                            <div class="client-avatar">BM</div>
+                            <div class="client-info">
+                                <strong>Bella Mode SARL</strong>
+                                <span>Sophie Kaboré</span>
+                            </div>
+                        </div>
+                        <div class="demande-status">
+                            <span class="status-badge status-en-cours">En cours</span>
+                            <span class="priority-badge priority-high">Urgent</span>
+                        </div>
+                    </div>
+                    
+                    <div class="demande-content">
+                        <h3 class="demande-title">Campagne Réseaux Sociaux - Collection Automne</h3>
+                        <p class="demande-description">Création de contenu et gestion de campagnes pour la nouvelle collection</p>
+                        
+                        <div class="services-list">
+                            <div class="service-tag">
+                                <i class="fas fa-bullhorn"></i>
+                                Gestion de Campagnes
+                                <span class="service-assignee">Marie K.</span>
+                            </div>
+                            <div class="service-tag">
+                                <i class="fas fa-palette"></i>
+                                Création Graphique
+                                <span class="service-assignee">Jean T.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="demande-progress">
+                            <div class="progress-info">
+                                <span>Progression globale</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demande-footer">
+                        <div class="demande-dates">
+                            <span><i class="fas fa-calendar"></i> 15 Oct 2024</span>
+                            <span><i class="fas fa-clock"></i> Échéance: 30 Oct</span>
+                        </div>
+                        <div class="demande-actions">
+                            <button class="btn-icon btn-view" onclick="viewDemandeDetails(1)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon btn-message" onclick="sendFormLink(1)">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <button class="btn-icon btn-invoice" onclick="generateInvoice(1)">
+                                <i class="fas fa-receipt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demande 2 -->
+                <div class="demande-card">
+                    <div class="demande-header">
+                        <div class="demande-client">
+                            <div class="client-avatar">TS</div>
+                            <div class="client-info">
+                                <strong>Tech Solutions BF</strong>
+                                <span>Jean Traoré</span>
+                            </div>
+                        </div>
+                        <div class="demande-status">
+                            <span class="status-badge status-attente">En attente formulaire</span>
+                            <span class="priority-badge priority-medium">Moyenne</span>
+                        </div>
+                    </div>
+                    
+                    <div class="demande-content">
+                        <h3 class="demande-title">Refonte Site Web Corporate</h3>
+                        <p class="demande-description">Modernisation du site web et optimisation SEO</p>
+                        
+                        <div class="services-list">
+                            <div class="service-tag pending">
+                                <i class="fas fa-code"></i>
+                                Développement Web
+                                <span class="service-status">En attente brief</span>
+                            </div>
+                        </div>
+                        
+                        <div class="formulaire-attente">
+                            <i class="fas fa-envelope"></i>
+                            <span>Formulaire à envoyer au client</span>
+                            <button class="btn-text" onclick="sendFormLink(2)">
+                                Envoyer le lien
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="demande-footer">
+                        <div class="demande-dates">
+                            <span><i class="fas fa-calendar"></i> 01 Nov 2024</span>
+                            <span><i class="fas fa-clock"></i> Échéance: 15 Déc</span>
+                        </div>
+                        <div class="demande-actions">
+                            <button class="btn-icon btn-view" onclick="viewDemandeDetails(2)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon btn-message" onclick="sendFormLink(2)">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demande 3 -->
+                <div class="demande-card">
+                    <div class="demande-header">
+                        <div class="demande-client">
+                            <div class="client-avatar">JC</div>
+                            <div class="client-info">
+                                <strong>Jeune Créateur</strong>
+                                <span>Abdoul Martin</span>
+                            </div>
+                        </div>
+                        <div class="demande-status">
+                            <span class="status-badge status-termine">Terminé</span>
+                            <span class="priority-badge priority-low">Basse</span>
+                        </div>
+                    </div>
+                    
+                    <div class="demande-content">
+                        <h3 class="demande-title">Stratégie TikTok</h3>
+                        <p class="demande-description">Création de contenu vidéo pour TikTok</p>
+                        
+                        <div class="services-list">
+                            <div class="service-tag completed">
+                                <i class="fas fa-video"></i>
+                                Production Vidéo
+                                <span class="service-assignee">Pierre S.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="demande-progress">
+                            <div class="progress-info">
+                                <span>Progression globale</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demande-footer">
+                        <div class="demande-dates">
+                            <span><i class="fas fa-calendar"></i> 10 Oct 2024</span>
+                            <span><i class="fas fa-check-circle"></i> Livré: 20 Oct</span>
+                        </div>
+                        <div class="demande-actions">
+                            <button class="btn-icon btn-view" onclick="viewDemandeDetails(3)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon btn-invoice" onclick="generateInvoice(3)">
+                                <i class="fas fa-receipt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carte pour nouvelle demande -->
+                <div class="demande-card new-demande-card" onclick="openNewDemandeModal()">
+                    <div class="new-demande-content">
+                        <i class="fas fa-plus"></i>
+                        <h3>Nouvelle Demande</h3>
+                        <p>Créer une nouvelle demande client</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour nouvelle demande -->
+    <div id="newDemandeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nouvelle Demande Client</h3>
+                <button class="modal-close" onclick="closeNewDemandeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="newDemandeForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="demandeClient">Client *</label>
+                            <select id="demandeClient" required onchange="loadClientInfo()">
+                                <option value="">Sélectionnez un client</option>
+                                <option value="1">Bella Mode SARL - Sophie Kaboré</option>
+                                <option value="2">Tech Solutions BF - Jean Traoré</option>
+                                <option value="3">Jeune Créateur - Abdoul Martin</option>
+                                <option value="new">+ Nouveau client</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="demandeTitre">Titre de la demande *</label>
+                            <input type="text" id="demandeTitre" required placeholder="Ex: Campagne Réseaux Sociaux Collection Automne">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="demandeDescription">Description</label>
+                            <textarea id="demandeDescription" rows="3" placeholder="Décrivez brièvement la demande du client..."></textarea>
+                        </div>
+                        
+                        <!-- Sélection des services -->
+                        <div class="form-group full-width">
+                            <label>Services demandés *</label>
+                            <div class="services-selection">
+                                <div class="service-option" onclick="toggleService(this, 'campagnes')">
+                                    <div class="service-checkbox">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="service-icon">
+                                        <i class="fas fa-bullhorn"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <strong>Gestion de Campagnes Publicitaires</strong>
+                                        <span>150,000 FCFA • 30 jours</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-option" onclick="toggleService(this, 'graphique')">
+                                    <div class="service-checkbox">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="service-icon">
+                                        <i class="fas fa-palette"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <strong>Création Graphique</strong>
+                                        <span>75,000 FCFA • 7 jours</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-option" onclick="toggleService(this, 'video')">
+                                    <div class="service-checkbox">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="service-icon">
+                                        <i class="fas fa-video"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <strong>Production Vidéo</strong>
+                                        <span>200,000 FCFA • 15 jours</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="service-option" onclick="toggleService(this, 'web')">
+                                    <div class="service-checkbox">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="service-icon">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <strong>Développement Web</strong>
+                                        <span>500,000 FCFA • 45 jours</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="demandeEcheance">Échéance souhaitée</label>
+                            <input type="date" id="demandeEcheance">
+                        </div>
+                        <div class="form-group">
+                            <label for="demandePriorite">Priorité</label>
+                            <select id="demandePriorite">
+                                <option value="basse">Basse</option>
+                                <option value="moyenne" selected>Moyenne</option>
+                                <option value="haute">Haute</option>
+                                <option value="urgente">Urgente</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeNewDemandeModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="createNewDemande()">
+                    <i class="fas fa-paper-plane"></i>
+                    Créer et Envoyer le Formulaire
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/projets.js"></script>
+</body>
+</html>

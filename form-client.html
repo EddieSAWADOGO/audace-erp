@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Besoins - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/form-client.css">
+</head>
+<body>
+    <!-- En-tête professionnelle avec logo -->
+    <header class="client-header">
+        <div class="header-background">
+            <div class="header-shimmer"></div>
+        </div>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    
+                    <div class="company-info">
+                        <img src="assets/logoaudace.jpg" alt="Audace Digicom" class="logo">
+                        <p>Votre partenaire ideal</p>
+                    </div>
+                </div>
+                <div class="header-badge">
+                    <span>Formulaire Professionnel</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="client-main">
+        <div class="container">
+            <!-- En-tête du formulaire -->
+            <div class="form-intro">
+                <div class="form-header-card">
+                    <h2 id="serviceTitle">Formulaire de Besoins</h2>
+                    <p id="serviceDescription" class="service-description">Merci de remplir ce formulaire pour nous permettre de mieux comprendre vos attentes et démarrer votre projet.</p>
+                    
+                    <div class="client-info-card">
+                        <div class="client-avatar-large">
+                            <div class="avatar-placeholder">CK</div>
+                        </div>
+                        <div class="client-details">
+                            <strong id="clientName">Client</strong>
+                            <span id="clientContact" class="client-contact">Contact</span>
+                            <span class="client-ref">Référence: <strong id="demandeRef">AD-2024-001</strong></span>
+                        </div>
+                        <div class="demande-info">
+                            <span class="date"><i class="fas fa-calendar"></i> <strong id="currentDate"></strong></span>
+                            <span class="status-badge status-active">En Cours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulaire dynamique -->
+            <div class="form-container">
+                <form id="clientNeedsForm">
+                    <!-- Les champs dynamiques du formulaire de service seront injectés ici -->
+                    <div id="dynamicFormFields">
+                        <div class="loading-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Chargement du formulaire...</p>
+                        </div>
+                    </div>
+
+                    <!-- Section fichiers optionnelle -->
+                    <div class="form-section" id="filesSection" style="display: none;">
+                        <h3><i class="fas fa-paperclip"></i> Documents de Référence</h3>
+                        <p class="section-info">Vous pouvez joindre des documents, images ou références qui nous aideront à mieux comprendre votre projet (optionnel).</p>
+                        
+                        <div class="file-upload">
+                            <div class="upload-zone" id="uploadZone">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Glissez-déposez vos fichiers ici</p>
+                                <small>Formats: JPG, PNG, PDF, PSD, MP4 (Max. 10MB)</small>
+                                <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.pdf,.psd,.mp4" style="display: none;">
+                            </div>
+                            <div class="uploaded-files" id="uploadedFiles"></div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton de soumission -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Soumettre mes Besoins
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pied de page avec drapeau et animations -->
+    <footer class="client-footer">
+        <div class="footer-background">
+            <div class="footer-shimmer"></div>
+        </div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-info">
+                        <div class="footer-logo">
+                            
+                            <div class="logo-text">
+                                <img src="assets/logoaudace.jpg" alt="Audace Digicom" class="logo-small">
+                                <p>Excellence Digitale, Innovation Continue</p>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <span><i class="fas fa-phone"></i> +226 00 00 00 00</span>
+                            <span><i class="fas fa-envelope"></i> contact@audacedigicom.bf</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Ouagadougou, Burkina Faso</span>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-national">
+                        <div class="national-info">
+                            <img src="assets/drapeauBF.png" alt="Drapeau Burkina Faso" class="flag-large">
+                            <div class="national-text">
+                                <strong>Entreprise 100% Burkinabè</strong>
+                                <span>Fierté Nationale</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <div class="footer-legal">
+                        <div class="legal-info">
+                            <p><i class="fas fa-copyright"></i> 2025 Audace Digicom. Tous droits réservés.</p>
+                        </div>
+                        <div class="social-links">
+                            <span>Suivez-nous:</span>
+                            <div class="social-icons">
+                                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de confirmation -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-check-circle"></i>
+                <h3>Formulaire Soumis !</h3>
+            </div>
+            <div class="modal-body">
+                <p>Merci ! Vos besoins ont été enregistrés avec succès.</p>
+                <p>Notre équipe reviendra vers vous rapidement pour la suite.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="closeModal()">
+                    Compris
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/form-client.js"></script>
+</body>
+</html>

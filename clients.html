@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Clients - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/clients.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+</head>
+<body>
+    <!-- Le menu latéral sera injecté ici par JavaScript -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Contenu Principal -->
+    <div class="main-content">
+        <!-- L'en-tête sera injecté ici par JavaScript -->
+        <div id="header-container"></div>
+        
+        <!-- Contenu spécifique à la page clients -->
+        <main>
+            <!-- En-tête de page avec bouton d'action -->
+            <div class="page-header">
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="openClientModal()">
+                        <i class="fas fa-plus"></i>
+                        Nouveau Client
+                    </button>
+                    <div class="header-filters">
+                        <select class="filter-select" id="statusFilter">
+                            <option value="">Tous les statuts</option>
+                            <option value="actif">Actifs</option>
+                            <option value="inactif">Inactifs</option>
+                        </select>
+                        <select class="filter-select" id="typeFilter">
+                            <option value="">Tous les types</option>
+                            <option value="particulier">Particulier</option>
+                            <option value="pme">PME</option>
+                            <option value="sarl">SARL</option>
+                            <option value="sa">SA</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableau des clients -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Liste des Clients</h2>
+                    <div class="card-actions">
+                        <button class="btn-icon" title="Exporter">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="btn-icon" title="Rafraîchir">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="clientsTable">
+                        <thead>
+                            <tr>
+                                <th>Nom & Prénom</th>
+                                <th>Entreprise</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Type</th>
+                                <th>Projets</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="client-info">
+                                        <div class="client-avatar">BM</div>
+                                        <div class="client-details">
+                                            <strong>Bella Mode</strong>
+                                            <span>Sophie Kaboré</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Bella Mode SARL</td>
+                                <td>+226 70 12 34 56</td>
+                                <td>contact@bellamode.bf</td>
+                                <td><span class="badge badge-sarl">SARL</span></td>
+                                <td>3</td>
+                                <td><span class="status-badge status-active">Actif</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-view" title="Voir">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon btn-edit" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" title="Archiver">
+                                            <i class="fas fa-archive"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="client-info">
+                                        <div class="client-avatar">TS</div>
+                                        <div class="client-details">
+                                            <strong>Tech Solutions</strong>
+                                            <span>Jean Traoré</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Tech Solutions BF</td>
+                                <td>+226 76 54 32 10</td>
+                                <td>jean@techsolutions.bf</td>
+                                <td><span class="badge badge-sa">SA</span></td>
+                                <td>5</td>
+                                <td><span class="status-badge status-active">Actif</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-view" title="Voir">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon btn-edit" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" title="Archiver">
+                                            <i class="fas fa-archive"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="client-info">
+                                        <div class="client-avatar">AM</div>
+                                        <div class="client-details">
+                                            <strong>Abdoul Martin</strong>
+                                            <span>Particulier</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>-</td>
+                                <td>+226 65 43 21 09</td>
+                                <td>abdoul.martin@email.com</td>
+                                <td><span class="badge badge-particulier">Particulier</span></td>
+                                <td>1</td>
+                                <td><span class="status-badge status-inactive">Inactif</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-view" title="Voir">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon btn-edit" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete" title="Archiver">
+                                            <i class="fas fa-archive"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="pagination-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="pagination-info">Page 1 sur 1</span>
+                    <button class="pagination-btn" disabled>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour ajouter/modifier un client -->
+<div id="clientModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Nouveau Client</h3>
+            <button class="modal-close" onclick="closeClientModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="clientForm">
+                <div class="form-grid">
+                    <!-- Informations de base -->
+                    <div class="form-group">
+                        <label for="clientNom">Nom *</label>
+                        <input type="text" id="clientNom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientPrenom">Prénom(s) *</label>
+                        <input type="text" id="clientPrenom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEntreprise">Nom de l'entreprise</label>
+                        <input type="text" id="clientEntreprise">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientSecteur">Secteur d'activité</label>
+                        <input type="text" id="clientSecteur" placeholder="Ex: Mode, Technologie, Restauration...">
+                    </div>
+
+                    <!-- Coordonnées -->
+                    <div class="form-group">
+                        <label for="clientWhatsApp">WhatsApp *</label>
+                        <input type="tel" id="clientWhatsApp" required placeholder="+226 XX XX XX XX">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientTelephone">Téléphone 2</label>
+                        <input type="tel" id="clientTelephone" placeholder="+226 XX XX XX XX">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail">Email</label>
+                        <input type="email" id="clientEmail" placeholder="exemple@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientType">Type de Client *</label>
+                        <select id="clientType" required>
+                            <option value="">Sélectionnez...</option>
+                            <option value="particulier">Particulier</option>
+                            <option value="pme">PME</option>
+                            <option value="sarl">SARL</option>
+                            <option value="sa">SA</option>
+                        </select>
+                    </div>
+
+                    <!-- Adresse -->
+                    <div class="form-group full-width">
+                        <label for="clientAdresse">Adresse physique</label>
+                        <textarea id="clientAdresse" rows="2" placeholder="Adresse complète..."></textarea>
+                    </div>
+
+                    <!-- Informations légales -->
+                    <div class="form-group">
+                        <label for="clientRCCM">RCCM</label>
+                        <input type="text" id="clientRCCM" placeholder="Numéro RCCM">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientIFU">IFU</label>
+                        <input type="text" id="clientIFU" placeholder="Numéro IFU">
+                    </div>
+
+                    <!-- Statut -->
+                    <div class="form-group">
+                        <label for="clientStatut">Statut *</label>
+                        <select id="clientStatut" required>
+                            <option value="actif">Actif</option>
+                            <option value="inactif">Inactif</option>
+                        </select>
+                    </div>
+
+                    <!-- Pages sociales -->
+                    <div class="form-group full-width">
+                        <label>Pages sociales gérées</label>
+                        <div class="social-pages-container">
+                            <div class="social-page-input">
+                                <select class="social-platform">
+                                    <option value="">Plateforme</option>
+                                    <option value="facebook">Facebook</option>
+                                    <option value="tiktok">TikTok</option>
+                                    <option value="instagram">Instagram</option>
+                                    <option value="linkedin">LinkedIn</option>
+                                    <option value="youtube">YouTube</option>
+                                </select>
+                                <input type="url" class="social-url" placeholder="URL de la page">
+                                <button type="button" class="btn-icon btn-remove-social" onclick="removeSocialPage(this)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-text" onclick="addSocialPage()">
+                            <i class="fas fa-plus"></i> Ajouter une page sociale
+                        </button>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="form-group full-width">
+                        <label for="clientNotes">Notes internes</label>
+                        <textarea id="clientNotes" rows="4" placeholder="Informations supplémentaires sur le client..."></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="closeClientModal()">Annuler</button>
+            <button type="button" class="btn btn-primary" onclick="saveClient()">Enregistrer</button>
+        </div>
+    </div>
+</div>
+
+    <script src="js/app.js"></script>
+    <script src="js/clients.js"></script>
+</body>
+</html>

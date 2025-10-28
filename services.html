@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Services - Audace Digicom</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/services.css">
+    <link rel="stylesheet" href="css/components/modal.css">
+</head>
+<body>
+    <!-- Le menu latéral sera injecté ici par JavaScript -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Contenu Principal -->
+    <div class="main-content">
+        <!-- L'en-tête sera injecté ici par JavaScript -->
+        <div id="header-container"></div>
+        
+        <!-- Contenu spécifique à la page services -->
+        <main>
+            <!-- En-tête de page avec boutons d'action -->
+            <div class="page-header">
+                <div class="header-actions">
+
+                    <div class="action-group">
+                        <button class="btn btn-primary" onclick="openServiceModal()">
+                            <i class="fas fa-plus"></i>
+                            Nouveau Service
+                        </button>
+                        <button class="btn btn-secondary" onclick="window.location.href='form-builder.html'">
+                            <i class="fas fa-wrench"></i>
+                            Gérer les Formulaires
+                        </button>
+
+                    </div>
+
+                    <select class="filter-select" id="typeFilter">
+                        <option value="">Tous les types</option>
+                        <option value="standard">Standard</option>
+                        <option value="diffusion">Diffusion</option>
+                        <option value="graphique">Graphique</option>
+                        <option value="video">Vidéo</option>
+                        <option value="gestion">Gestion de page</option>
+                    </select>
+                </div>
+                
+            </div>
+
+            <!-- Grid des services -->
+            <div class="services-grid">
+                <!-- Carte Service 1 -->
+                <div class="service-card" data-type="diffusion">
+                    <div class="service-header">
+                        <div class="service-icon diffusion">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="service-actions">
+                            <button class="btn-icon btn-edit" onclick="openEditServiceModal(1)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" onclick="deleteService(1)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="service-badge badge-diffusion">Diffusion</div>
+                    <h3 class="service-title">Gestion de Campagnes Publicitaires</h3>
+                    <p class="service-description">
+                        Création et gestion complète de campagnes sur les réseaux sociaux avec optimisation et reporting.
+                    </p>
+                    <div class="service-details">
+                        <div class="service-detail">
+                            <span class="detail-label">Prix:</span>
+                            <span class="detail-value">150,000 FCFA</span>
+                        </div>
+                        <div class="service-detail">
+                            <span class="detail-label">Durée:</span>
+                            <span class="detail-value">30 jours</span>
+                        </div>
+                        <div class="service-detail">
+                            <span class="detail-label">Type:</span>
+                            <span class="detail-value">Diffusion</span>
+                        </div>
+                    </div>
+                   
+                    <div class="service-footer">
+                        <button class="btn btn-outline" onclick="viewServiceForm(1)">
+                            <i class="fas fa-eye"></i>
+                            Voir Formulaire
+                        </button>
+                        <button class="btn btn-primary" onclick="assignService(1)">
+                            <i class="fas fa-project-diagram"></i>
+                            Utiliser
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Carte Service 2 -->
+                <div class="service-card" data-type="graphique">
+                    <div class="service-header">
+                        <div class="service-icon graphique">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="service-actions">
+                            <button class="btn-icon btn-edit" onclick="openEditServiceModal(2)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" onclick="deleteService(2)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="service-badge badge-graphique">Graphique</div>
+                    <h3 class="service-title">Création Graphique</h3>
+                    <p class="service-description">
+                        Conception d'affiches, bannières et visuels pour vos campagnes marketing et réseaux sociaux.
+                    </p>
+                    <div class="service-details">
+                        <div class="service-detail">
+                            <span class="detail-label">Prix:</span>
+                            <span class="detail-value">75,000 FCFA</span>
+                        </div>
+                        <div class="service-detail">
+                            <span class="detail-label">Durée:</span>
+                            <span class="detail-value">7 jours</span>
+                        </div>
+                        <div class="service-detail">
+                            <span class="detail-label">Type:</span>
+                            <span class="detail-value">Graphique</span>
+                        </div>
+                    </div>
+                    
+                    <div class="service-footer">
+                        <button class="btn btn-outline" onclick="viewServiceForm(2)">
+                            <i class="fas fa-eye"></i>
+                            Voir Formulaire
+                        </button>
+                        <button class="btn btn-primary" onclick="assignService(2)">
+                            <i class="fas fa-project-diagram"></i>
+                            Utiliser
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Carte Service 3 -->
+                <div class="service-card" data-type="video">
+                    <div class="service-header">
+                        <div class="service-icon video">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="service-actions">
+                            <button class="btn-icon btn-edit" onclick="openEditServiceModal(3)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" onclick="deleteService(3)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="service-badge badge-video">Vidéo</div>
+                    <h3 class="service-title">Production Vidéo</h3>
+                    <p class="service-description">
+                        Création de contenu vidéo pour TikTok, Instagram Reels et YouTube Shorts.
+                    </p>
+                    <div class="service-details">
+                        <div class="service-detail">
+                            <span class="detail-label">Prix:</span>
+                            <span class="detail-value">200,000 FCFA</span>
+                        </div>
+                        <div class="service-detail">
+                            <span class="detail-label">Durée:</span>
+                            <span class="detail-value">15 jours</span>
+                        </div>
+                        <div class="service-detail">
+                            <span class="detail-label">Type:</span>
+                            <span class="detail-value">Vidéo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="service-footer">
+                        <button class="btn btn-outline" onclick="viewServiceForm(3)">
+                            <i class="fas fa-eye"></i>
+                            Voir Formulaire
+                        </button>
+                        <button class="btn btn-primary" onclick="assignService(3)">
+                            <i class="fas fa-project-diagram"></i>
+                            Utiliser
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Carte Service Vide (pour ajout) -->
+                <div class="service-card add-service-card" onclick="openServiceModal()">
+                    <div class="add-service-content">
+                        <i class="fas fa-plus"></i>
+                        <h3>Ajouter un Service</h3>
+                        <p>Créer un nouveau service dans le catalogue</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pour ajouter/modifier un service -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="serviceModalTitle">Nouveau Service</h3>
+                <button class="modal-close" onclick="closeServiceModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="serviceForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="serviceNom">Nom du Service *</label>
+                            <input type="text" id="serviceNom" required placeholder="Ex: Gestion de Campagnes Publicitaires">
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceType">Type de service *</label>
+                            <select id="serviceType" required onchange="toggleSpecialFields()">
+                                <option value="standard">Standard</option>
+                                <option value="diffusion">Diffusion Publicitaire</option>
+                                <option value="graphique">Création Graphique</option>
+                                <option value="video">Production Vidéo</option>
+                                <option value="gestion">Gestion de page</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="servicePrix">Prix de base (FCFA) *</label>
+                            <input type="number" id="servicePrix" required placeholder="Ex: 150000">
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceDuree">Durée estimée (jours) *</label>
+                            <input type="number" id="serviceDuree" required placeholder="Ex: 30">
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceFormulaire">Formulaire associé</label>
+                            <select id="serviceFormulaire">
+                                <option value="">Aucun formulaire</option>
+                                <option value="1">Formulaire Campagnes Pub</option>
+                                <option value="2">Formulaire Création Graphique</option>
+                                <option value="3">Formulaire Production Vidéo</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="serviceDescription">Description détaillée *</label>
+                            <textarea id="serviceDescription" rows="4" required placeholder="Décrivez en détail le service proposé..."></textarea>
+                        </div>
+
+                        <!-- Champs spécifiques à la diffusion -->
+                        <div id="diffusionFields" class="special-fields" style="display: none;">
+                            <div class="info-card">
+                                <div class="info-header">
+                                    <i class="fas fa-bullhorn"></i>
+                                    <h4>Service de Diffusion Publicitaire</h4>
+                                </div>
+                                <div class="info-content">
+                                    <p><strong>Champs supplémentaires à remplir par l'employé :</strong></p>
+                                    <ul>
+                                        <li>✅ Budget quotidien de la campagne</li>
+                                        <li>✅ Durée prévue (en jours)</li>
+                                        <li>✅ Dates de début et fin effective</li>
+                                        <li>✅ Plateforme cible (Facebook, TikTok, etc.)</li>
+                                        <li>✅ Lien vers la campagne</li>
+                                    </ul>
+                                    <p class="info-note">Ces informations seront demandées lorsque ce service sera ajouté à un projet.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Champs spécifiques aux services graphiques -->
+                        <div id="graphiqueFields" class="special-fields" style="display: none;">
+                            <div class="info-card">
+                                <div class="info-header">
+                                    <i class="fas fa-palette"></i>
+                                    <h4>Service de Création Graphique</h4>
+                                </div>
+                                <div class="info-content">
+                                    <p><strong>Spécificités :</strong></p>
+                                    <ul>
+                                        <li>✅ Upload de fichiers sources (PSD, AI)</li>
+                                        <li>✅ Formats de livraison multiples</li>
+                                        <li>✅ Révisions incluses</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Champs spécifiques aux services vidéo -->
+                        <div id="videoFields" class="special-fields" style="display: none;">
+                            <div class="info-card">
+                                <div class="info-header">
+                                    <i class="fas fa-video"></i>
+                                    <h4>Service de Production Vidéo</h4>
+                                </div>
+                                <div class="info-content">
+                                    <p><strong>Spécificités :</strong></p>
+                                    <ul>
+                                        <li>✅ Formats optimisés réseaux sociaux</li>
+                                        <li>✅ Sous-titres inclus</li>
+                                        <li>✅ Effets et transitions</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeServiceModal()">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="saveService()">Enregistrer le Service</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/services.js"></script>
+</body>
+</html>

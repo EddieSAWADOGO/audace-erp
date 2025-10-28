@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Employés - Audace Digicom</title>
+    <link rel="icon" type="image/jpg" href="assets/logoaudace.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+    <div class="login-container">
+        
+        <div class="brand-section">
+            
+            <!-- Points de connexion animés -->
+            <div class="data-point"></div>
+            <div class="data-point"></div>
+            <div class="data-point"></div>
+            <div class="data-point"></div>
+            <div class="data-point"></div>
+            <div class="data-point"></div>
+            
+            <!-- Lignes de connexion animées -->
+            <div class="connection-line"></div>
+            <div class="connection-line"></div>
+            <div class="connection-line"></div>
+            
+            <div class="brand-content">
+                <img src="assets/logoaudace.jpg" alt="Logo Audace Digicom" class="brand-logo">
+                <h1 class="brand-title">Bienvenue Cher Membre</h1>
+                <p class="brand-subtitle">Notre succès repose sur votre dynamisme. 
+                    Ensemble, transformons notre travail collectif en une force d'excellence et de passion, 
+                    garante de la prochaine grande réussite de l'entreprise.
+                </p>
+            </div>
+        </div>
+        
+        <div class="login-section">
+            <div class="login-header">
+                <h2 class="login-title">Connexion</h2>
+            </div>
+            
+            <form id="employeeLoginForm">
+                <div class="form-group">
+                    <label class="form-label" for="employeeEmail">
+                        Email 
+                    </label>
+                    <div class="input-container">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input 
+                            type="email" 
+                            id="employeeEmail" 
+                            class="form-input" 
+                            placeholder="prenom.nom@audacedigicom.com" 
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="employeePassword">
+                        Mot de passe
+                    </label>
+                    <div class="input-container">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input 
+                            type="password" 
+                            id="employeePassword" 
+                            class="form-input" 
+                            placeholder="Votre mot de passe sécurisé" 
+                            required
+                        >
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Se connecter
+                </button>
+                
+                <div class="security-warning">
+                    <i class="fas fa-info-circle"></i>
+                    <span>L'accès à cette plateforme est strictement limité aux collaborateurs autorisés. 
+                        Toute tentative de connexion non autorisée fera l'objet de poursuites.
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/login.js"></script>
+</body>
+</html>
